@@ -170,7 +170,7 @@ void initAccel()
 
 int locationChange() //how to we make this prevent publishing location if the location has not changed appreciably?
 {
-  if(distanceBetween(lastGPSlat, lastGPSlong, GPS.latitude, GPS.longitude) > 100)//location has changed
+  if(distanceBetween(lastGPSlat, lastGPSlong, convertDegMinToDecDeg(GPS.latitude), convertDegMinToDecDeg(GPS.longitude)) > 100)//location has changed
   {
     return 1;
   }
@@ -233,7 +233,7 @@ int publishGPS(String caller)
     Particle.publish(MY_NAME + String("_call"), gps_call, 60);
   }
 
-  lastGPSlat = GPS.latitude;
-  lastGPSlong = GPS.longitude;
+  lastGPSlat = convertDegMinToDecDeg(GPS.latitude);
+  lastGPSlong = convertDegMinToDecDeg(GPS.longitude);
   return 0;
 }
