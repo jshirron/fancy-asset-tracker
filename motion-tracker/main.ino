@@ -170,7 +170,7 @@ void initAccel()
 
 int locationChange() //how to we make this prevent publishing location if the location has not changed appreciably?
 {
-  if(distanceBetween(lastGPSlat, lastGPSlong, convertDegMinToDecDeg(GPS.latitude), convertDegMinToDecDeg(GPS.longitude)) > 100)//location has changed
+  if(distanceBetween(lastGPSlat, lastGPSlong, convertDegMinToDecDeg(GPS.latitude), convertDegMinToDecDeg(GPS.longitude)) > 1000)//location has changed
   {
     return 1;
   }
@@ -202,6 +202,7 @@ double distanceBetween(double lat1, double long1, double lat2, double long2)
   double denom = (slat1 * slat2) + (clat1 * clat2 * cdlong);
   delta = atan2(delta, denom);
 
+  Serial.println(delta * 6372795);
   return delta * 6372795;
 }
 
